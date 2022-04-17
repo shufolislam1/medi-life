@@ -1,0 +1,8 @@
+.service-info img {
+    height: 300px;
+}
+.service-info{
+    border: 1px solid red;
+    margin-bottom: 10px;
+    padding: 10px;
+}
