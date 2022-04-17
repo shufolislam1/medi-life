@@ -1,8 +1,12 @@
 .service-info img {
     height: 300px;
+    width: 500px;
+    border-radius: 10px;
 }
 .service-info{
-    border: 1px solid red;
+    border: 1px solid burlywood;
     margin-bottom: 10px;
     padding: 10px;
+    text-align: center;
+    border-radius: 10px;
 }
