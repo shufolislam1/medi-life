@@ -16,9 +16,9 @@ const Home = () => {
                         src={slidedoc1}
                         alt="First slide"
                     />
-                    <Carousel.Caption>
-                        <h3>First slide label</h3>
-                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                    <Carousel.Caption className='text-primary'>
+                        <h3>Heart Speciatist</h3>
+                        <p>After 35 most people have heart problem.If you fell uneasy or anything wrong, please contact us.We are always there for you.</p>
                     </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
@@ -28,9 +28,9 @@ const Home = () => {
                         alt="Second slide"
                     />
 
-                    <Carousel.Caption>
-                        <h3>Second slide label</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <Carousel.Caption className='text-primary'>
+                        <h3>child Specialist</h3>
+                        <p>Child have many problem and we have to understand them. So for any problem of your child, we are here.</p>
                     </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
@@ -40,13 +40,13 @@ const Home = () => {
                         alt="Third slide"
                     />
 
-                    <Carousel.Caption>
-                        <h3>Third slide label</h3>
-                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                    <Carousel.Caption className='text-primary'>
+                        <h3>Medicine Specialist</h3>
+                        <p>Take your time and discuss any kind of problem with worlds best medicine specialist.</p>
                     </Carousel.Caption>
                 </Carousel.Item>
             </Carousel>
-            <Services></Services>
+            {/* <Services></Services> */}
         </div>
     );
 };
