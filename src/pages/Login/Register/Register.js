@@ -1,8 +1,9 @@
 import React, { useRef } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init'
+import Loading from '../../Shared/Loading/Loading';
 
 const Register = () => {
     const [signInWithGoogle, user2, loading2, error2] = useSignInWithGoogle(auth);
@@ -12,20 +13,30 @@ const Register = () => {
         user,
         loading,
         error,
-    ] = useCreateUserWithEmailAndPassword(auth);
+    ] = useCreateUserWithEmailAndPassword(auth, {sendEmailVerification: true});
+
+    const [updateProfile, updating, error3] = useUpdateProfile(auth);
+
     const emailRef = useRef('')
     const passRef = useRef('')
     const nameRef = useRef('')
     const navigate = useNavigate()
 
-    const handleRegister = event => {
+    if(user){
+        console.log('user', user);
+    }
+
+    const handleRegister = async (event) => {
         event.preventDefault();
         // const name = event.target.name.value;
         const email = emailRef.current.value;
         const pass = passRef.current.value;
         const name = nameRef.current.value;
-        console.log(name, email, pass);
-        createUserWithEmailAndPassword(email, pass)
+
+        await createUserWithEmailAndPassword(email, pass);
+        await updateProfile({ displayName:name });
+        console.log('Updated profile');
+        navigate('/home')
     }
 
     let errorElement;
@@ -37,6 +48,13 @@ const Register = () => {
 
     if (user2) {
         navigate('/home')
+    }
+
+    if (loading) {
+        return <Loading></Loading>
+    }
+    if (loading2) {
+        return <Loading></Loading>
     }
 
     const navigateLogin = (event) => {

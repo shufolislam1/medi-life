@@ -1,8 +1,12 @@
+import { sendPasswordResetEmail } from 'firebase/auth';
 import React, { useRef } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
+import Loading from '../../Shared/Loading/Loading';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
 
@@ -42,8 +46,25 @@ const Login = () => {
     if (user) {
         navigate(from, { replace: true })
     }
+    if (loading) {
+        return <Loading></Loading>
+    }
+    if (loading2) {
+        return <Loading></Loading>
+    }
     const navigateRegister = (event) => {
         navigate('/register')
+    }
+
+    const resetPassword = async () => {
+        const email = emailRef.current.value;
+        if (email) {
+            await sendPasswordResetEmail(email);
+            toast('Sent email');
+        }
+        else{
+            toast('please enter your email address');
+        }
     }
     return (
         <div className='container w-50 mx-auto'>
@@ -60,7 +81,11 @@ const Login = () => {
                     Log In
                 </Button><br></br>
             </Form>
+
             <p className='mt-3'>New to Medi Life ? <Link to='/register' className='text-danger pe-auto text-decoration-none' onClick={navigateRegister}>Please Register</Link></p>
+
+            <p className='mt-3'>Forgot Pasword ? <button className='btn btn-link text-primary pe-auto text-decoration-none' onClick={resetPassword}>Reset Password</button></p>
+            <ToastContainer></ToastContainer>
 
             {errorElement}
 
