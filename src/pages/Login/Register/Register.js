@@ -1,20 +1,21 @@
 import React, { useRef } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init'
 
 const Register = () => {
+    const [signInWithGoogle, user2, loading2, error2] = useSignInWithGoogle(auth);
 
     const [
         createUserWithEmailAndPassword,
         user,
         loading,
         error,
-      ] = useCreateUserWithEmailAndPassword(auth);
-      const emailRef = useRef('')
-      const passRef = useRef('')
-      const nameRef = useRef('')
+    ] = useCreateUserWithEmailAndPassword(auth);
+    const emailRef = useRef('')
+    const passRef = useRef('')
+    const nameRef = useRef('')
     const navigate = useNavigate()
 
     const handleRegister = event => {
@@ -23,15 +24,26 @@ const Register = () => {
         const email = emailRef.current.value;
         const pass = passRef.current.value;
         const name = nameRef.current.value;
-        console.log(name,email,pass);
+        console.log(name, email, pass);
         createUserWithEmailAndPassword(email, pass)
+    }
+
+    let errorElement;
+
+    if (error2) {
+        errorElement =
+            <p className='text-danger'>Error: {error2.message}</p>
+    }
+
+    if (user2) {
+        navigate('/home')
     }
 
     const navigateLogin = (event) => {
         navigate('/login')
     }
 
-    if(user){
+    if (user) {
         navigate('/home');
     }
     return (
@@ -55,6 +67,10 @@ const Register = () => {
                 </Button>
             </Form>
             <p>Already have an account ? <Link to='/login' className='text-danger pe-auto text-decoration-none' onClick={navigateLogin}>Please Login</Link></p>
+
+            {errorElement}
+
+            <button onClick={() => signInWithGoogle()} className='mt-2 btn btn-primary'>Register with google</button>
         </div>
     );
 
