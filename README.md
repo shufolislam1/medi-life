@@ -1,6 +1,6 @@
 # Medi Life
 
-Live site link: 
+Live site link: https://glistening-kheer-165bcb.netlify.app/
 
 ## website features
 
