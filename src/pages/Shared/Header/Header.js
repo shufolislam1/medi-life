@@ -25,7 +25,7 @@ const Header = () => {
                     <Nav>
                         {
                             user ? <button onClick={handleSignout} className='btn btn-success'>sign out</button> :
-                                <Nav.Link className='btn btn-danger' as={Link} to="login">Login</Nav.Link>}
+                                <Nav.Link className='btn btn-danger' as={Link} to="login">Log In</Nav.Link>}
                     </Nav>
                 </Navbar.Collapse>
             </Container>
